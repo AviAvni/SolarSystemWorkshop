@@ -1,0 +1,20 @@
+﻿@model SolarSystem.Data[]
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Layout1.cshtml";
+}
+
+<h2>Planets</h2>
+<div class="container">
+    @foreach (var planet in Model)
+    {
+        <div class="item">
+            <h3>@planet.Name</h3>
+            <span>Size: @planet.Size</span>
+            <div>
+                <img src="@planet.Image" />
+            </div>
+            <div style="width: 300px">@Html.Raw(planet.Facts)</div>
+        </div>
+    }
+</div>

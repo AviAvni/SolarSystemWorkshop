@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@Page.Title</title>
+    <link href="@Url.Content("~/Styles/site.css")" rel="stylesheet" type="text/css" />
+    @RenderSection("head", required: false)
+</head>
+<body>
+    <div class="menu">
+        <div class="center">
+            @Html.ActionLink("Planets", "Index", new { data = "Planets" }, new { @class = "menu-item" })
+            @Html.ActionLink("Moons", "Index", new { data = "Moons" }, new { @class = "menu-item" })
+            @Html.ActionLink("Regions", "Index", new { data = "Regions" }, new { @class = "menu-item" })
+            @Html.ActionLink("SmallBodies", "Index", new { data = "SmallBodies" }, new { @class = "menu-item" })
+            @Html.ActionLink("Stars", "Index", new { data = "Stars" }, new { @class = "menu-item" })
+            @Html.ActionLink("SseLegend", "Index", new { data = "SseLegend" }, new { @class = "menu-item" })
+        </div>
+    </div>
+    @RenderBody()
+</body>
+</html>
