@@ -2,7 +2,7 @@
 
 open FSharp.Data
 
-type Data = 
+type SolarSystemItem = 
     {
         Name : string
         Image : string
@@ -69,18 +69,37 @@ let Stars =
             Facts = star.Url |> getFacts
         })
 
-let SseLegend = 
-    sample.SseLegend
-    |> Array.map (fun legend -> 
-        { 
-            Name = legend.Name
-            Image = "https://solarsystem.nasa.gov/" + legend.Img
-            Size = 0m
-            Facts = legend.Url |> Option.map getFacts |>  Option.defaultValue ""
-        })
-
 type AstroPhys = JsonProvider<"http://www.astro-phys.com/api/de406/states?date=2017-08-22&bodies=sun,mercury,venus,earth,moon,earthmoon,geomoon,mars,jupiter,uranus,neptune,pluto">
 let ss = AstroPhys.GetSample().Results.Earth
 
 type Wikipedia = HtmlProvider<"https://en.wikipedia.org/wiki/Earth">
 let earth = Wikipedia.GetSample().Tables.``Earth ``
+
+type GalleryItem =
+    {
+        Name : string
+        Url : string
+        Image : string
+    }
+
+type Gallery = JsonProvider<"https://solarsystem.nasa.gov/json/page-json.cfm?URLPath=galleries/">
+let Galleries = 
+    Gallery.GetSample().GalleriesList
+    |> Array.collect (fun gallery ->
+        gallery.GalleryLinks 
+        |> Array.map (fun link -> 
+            {
+                Name = link.Title
+                Url = link.Url
+                Image = "https://solarsystem.nasa.gov/" + link.Image
+            }))
+
+type GalleryImages = JsonProvider<"https://solarsystem.nasa.gov/json/page-json.cfm?URLPath=galleries/search/&category=planets">
+let getImages url =
+    GalleryImages.Load("https://solarsystem.nasa.gov/json/page-json.cfm?URLPath=" + url).Gallery
+    |> Array.map (fun image ->
+        {
+            Name = image.Title
+            Url = null
+            Image = "https://solarsystem.nasa.gov/" + image.Image
+        })

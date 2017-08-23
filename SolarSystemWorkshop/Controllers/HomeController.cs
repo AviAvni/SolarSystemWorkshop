@@ -29,12 +29,21 @@ namespace SolarSystemWorkshop.Controllers
                 case "Stars":
                     model = SolarSystem.Stars;
                     break;
-                case "SseLegend":
-                    model = SolarSystem.SseLegend;
-                    break;
                 default:
                     break;
             }
+            return View(model);
+        }
+
+        public ActionResult Gallery(string data)
+        {
+            var model = SolarSystem.Galleries;
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                model = SolarSystem.getImages(data);
+            }
+
             return View(model);
         }
     }

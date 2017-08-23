@@ -1,4 +1,4 @@
-﻿@model SolarSystem.Data[]
+﻿@model SolarSystem.SolarSystemItem[]
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/_Layout1.cshtml";
@@ -12,7 +12,7 @@
             <h3>@planet.Name</h3>
             <span>Size: @planet.Size</span>
             <div>
-                <img src="@planet.Image" />
+                <img class="gallery-item" src="@planet.Image" />
             </div>
             <div style="width: 300px">@Html.Raw(planet.Facts)</div>
         </div>

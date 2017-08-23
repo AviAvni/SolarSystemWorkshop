@@ -1,0 +1,27 @@
+﻿@model SolarSystem.GalleryItem[]
+@{
+    ViewBag.Title = "Gallery";
+    Layout = "~/Views/_Layout1.cshtml";
+}
+
+<h2>Planets</h2>
+<div class="container">
+    @foreach (var gallery in Model)
+    {
+        <div class="item">
+            <h3>@gallery.Name</h3>
+            <div>
+                @if (gallery.Url == null)
+                {
+                    <img class="gallery-item" src="@gallery.Image" />
+                }
+                else
+                {
+                    <a href="@Url.Action("Gallery", new { data = gallery.Url })">
+                        <img class="gallery-item" src="@gallery.Image" />
+                    </a>
+                }               
+            </div>
+        </div>
+    }
+</div>

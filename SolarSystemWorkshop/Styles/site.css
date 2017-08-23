@@ -10,7 +10,11 @@
 }
 
 .item {
+    margin: 5px;
+}
 
+.gallery-item {
+    height: 300px;
 }
 
 .center {
